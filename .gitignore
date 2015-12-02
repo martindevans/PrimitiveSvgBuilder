@@ -1,0 +1,7 @@
+*.cache
+*.suo
+
+_ReSharper.Caches
+
+PrimitiveSvgBuilder/bin
+PrimitiveSvgBuilder/obj
