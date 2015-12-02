@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>Martin Evans</authors>
+    <owners></owners>
+    <licenseUrl>https://github.com/martindevans/PrimitiveSvgBuilder/License.md</licenseUrl>
+    <projectUrl>https://github.com/martindevans/PrimitiveSvgBuilder</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright></copyright>
+  </metadata>
+</package>
