@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PrimitiveSvgBuilder
 {
-    internal class SvgBuilder
+    public class SvgBuilder
     {
         private readonly float _scale;
 
