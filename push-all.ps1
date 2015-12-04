@@ -1,20 +1,16 @@
 function Push-Nuget($path, $csproj) {
     $fullPathToCsprog = Join-Path -Path $path -ChildPath $csproj -resolve;
     
-    #Create *.nupkg and *.symbols.nupkg
-    nuget pack $fullPathToCsprog -Prop Configuration=Release -IncludeReferencedProjects -Verbosity quiet
+    nuget pack $fullPathToCsprog -Prop Configuration=Release -IncludeReferencedProjects
     
-    #Push *.nupkg and then delete it
     get-childitem -Filter *.nupkg -name | foreach ($_) {
         Write-Host "Pushing " $_ -backgroundcolor darkgreen -foregroundcolor white;
     
-        nuget push $_ 94eb36f22f1143beb553dd23451bb2ce -Source http://martin-server:8083/nuget/Default -Verbosity quiet
+        nuget push $_
         Remove-Item $_
         
         Write-Host "Done " $_ -backgroundcolor darkgreen -foregroundcolor white;
     }
-    
-    Write-Host ""
 }
 
 Push-Nuget "PrimitiveSvgBuilder" "PrimitiveSvgBuilder.csproj"
