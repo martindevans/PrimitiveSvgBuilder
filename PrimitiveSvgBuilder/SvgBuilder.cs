@@ -69,7 +69,7 @@ namespace PrimitiveSvgBuilder
 
         public SvgBuilder Text(string text, Vector2 position, string color = "green", string fontFamily = "verdana", int fontSize = 25)
         {
-            _parts.Add($"<text x={position.X} y={position.Y} font-family={fontFamily} font-size={fontSize}>{WebUtility.HtmlEncode(text)}</text>");
+            _parts.Add($"<text x={position.X * _scale} y={position.Y * _scale} font-family={fontFamily} font-size={fontSize}>{WebUtility.HtmlEncode(text)}</text>");
 
             return this;
         }
