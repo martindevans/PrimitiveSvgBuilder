@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Numerics;
 using System.Text;
 
@@ -36,8 +37,8 @@ namespace PrimitiveSvgBuilder
         {
             _parts.Add($"<circle cx=\"{center.X * _scale}\" cy=\"{center.Y * _scale}\" r=\"{radius * _scale}\" fill=\"{fill}\"></circle>");
 
-            _min = Vector2.Min(_min, center - new Vector2(radius));
-            _max = Vector2.Max(_max, center + new Vector2(radius));
+            UpdateMinMax(center - new Vector2(radius));
+            UpdateMinMax(center + new Vector2(radius));
 
             return this;
         }
@@ -64,6 +65,13 @@ namespace PrimitiveSvgBuilder
             builder.Append("\"></path>");
 
             return builder.ToString();
+        }
+
+        public SvgBuilder Text(string text, Vector2 position, string color = "green", string fontFamily = "verdana", int fontSize = 25)
+        {
+            _parts.Add($"<text x={position.X} y={position.Y} font-family={fontFamily} font-size={fontSize}>{WebUtility.HtmlEncode(text)}</text>");
+
+            return this;
         }
 
         private void UpdateMinMax(Vector2 v)
