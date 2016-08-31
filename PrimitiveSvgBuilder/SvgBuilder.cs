@@ -8,7 +8,7 @@ namespace PrimitiveSvgBuilder
 {
     public class SvgBuilder
     {
-        private readonly float _scale;
+        public float Scale { get; }
 
         private Vector2 _min = new Vector2(float.MaxValue);
         private Vector2 _max = new Vector2(float.MinValue);
@@ -21,12 +21,12 @@ namespace PrimitiveSvgBuilder
         /// <param name="scale">All positions will be multiplied by this value</param>
         public SvgBuilder(float scale = 1)
         {
-            _scale = scale;
+            Scale = scale;
         }
 
         public SvgBuilder Outline(IReadOnlyList<Vector2> shape, string stroke = "blue", string fill = "none", bool closed = true)
         {
-            _parts.Add(ToSvgPath(shape, _scale, stroke, fill, closed));
+            _parts.Add(ToSvgPath(shape, Scale, stroke, fill, closed));
 
             UpdateMinMax(shape);
 
@@ -35,7 +35,7 @@ namespace PrimitiveSvgBuilder
 
         public SvgBuilder Circle(Vector2 center, float radius, string fill = "blue")
         {
-            _parts.Add($"<circle cx=\"{center.X * _scale}\" cy=\"{center.Y * _scale}\" r=\"{radius * _scale}\" fill=\"{fill}\"></circle>");
+            _parts.Add($"<circle cx=\"{center.X * Scale}\" cy=\"{center.Y * Scale}\" r=\"{radius * Scale}\" fill=\"{fill}\"></circle>");
 
             UpdateMinMax(center - new Vector2(radius));
             UpdateMinMax(center + new Vector2(radius));
@@ -45,7 +45,7 @@ namespace PrimitiveSvgBuilder
 
         public SvgBuilder Line(Vector2 start, Vector2 end, float width, string stroke)
         {
-            _parts.Add($"<line x1=\"{start.X * _scale}\" y1=\"{start.Y * _scale}\" x2=\"{end.X * _scale}\" y2=\"{end.Y * _scale}\" stroke=\"{stroke}\" stroke-width=\"{width}\" />");
+            _parts.Add($"<line x1=\"{start.X * Scale}\" y1=\"{start.Y * Scale}\" x2=\"{end.X * Scale}\" y2=\"{end.Y * Scale}\" stroke=\"{stroke}\" stroke-width=\"{width}\" />");
 
             UpdateMinMax(start, end);
 
@@ -69,7 +69,7 @@ namespace PrimitiveSvgBuilder
 
         public SvgBuilder Text(string text, Vector2 position, string color = "green", string fontFamily = "verdana", int fontSize = 25)
         {
-            _parts.Add($"<text x=\"{position.X * _scale}\" y=\"{position.Y * _scale}\" font-family=\"{fontFamily}\" font-size=\"{fontSize}\">{WebUtility.HtmlEncode(text)}</text>");
+            _parts.Add($"<text x=\"{position.X * Scale}\" y=\"{position.Y * Scale}\" font-family=\"{fontFamily}\" font-size=\"{fontSize}\">{WebUtility.HtmlEncode(text)}</text>");
 
             return this;
         }
@@ -93,9 +93,9 @@ namespace PrimitiveSvgBuilder
 
         public override string ToString()
         {
-            var extent = (_max - _min) * _scale;
+            var extent = (_max - _min) * Scale;
 
-            return $"<svg width=\"{extent.X}\" height=\"{extent.Y}\"><g transform=\"translate({-_min.X * _scale}, {-_min.Y * _scale})\">{string.Join("", _parts)}</g></svg>";
+            return $"<svg width=\"{extent.X}\" height=\"{extent.Y}\"><g transform=\"translate({-_min.X * Scale}, {-_min.Y * Scale})\">{string.Join("", _parts)}</g></svg>";
         }
     }
 }
