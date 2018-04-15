@@ -33,9 +33,9 @@ namespace PrimitiveSvgBuilder
             return this;
         }
 
-        public SvgBuilder Circle(Vector2 center, float radius, string fill = "blue")
+        public SvgBuilder Circle(Vector2 center, float radius, string fill = "blue", string stroke = "blue")
         {
-            _parts.Add($"<circle cx=\"{center.X * Scale}\" cy=\"{center.Y * Scale}\" r=\"{radius * Scale}\" fill=\"{fill}\"></circle>");
+            _parts.Add($"<circle cx=\"{center.X * Scale}\" cy=\"{center.Y * Scale}\" r=\"{radius * Scale}\" fill=\"{fill}\" stroke=\"{stroke}\"></circle>");
 
             UpdateMinMax(center - new Vector2(radius));
             UpdateMinMax(center + new Vector2(radius));
@@ -43,7 +43,7 @@ namespace PrimitiveSvgBuilder
             return this;
         }
 
-        public SvgBuilder Line(Vector2 start, Vector2 end, float width, string stroke)
+        public SvgBuilder Line(Vector2 start, Vector2 end, float width, string stroke = "blue")
         {
             _parts.Add($"<line x1=\"{start.X * Scale}\" y1=\"{start.Y * Scale}\" x2=\"{end.X * Scale}\" y2=\"{end.Y * Scale}\" stroke=\"{stroke}\" stroke-width=\"{width}\" />");
 
